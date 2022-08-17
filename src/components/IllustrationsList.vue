@@ -1,23 +1,26 @@
 <template>
-  <div class="category" v-for="illustration in illustrations">
-    <div><strong>Title: </strong>{{ illustration.title }}</div>
-    <div><strong>Description: </strong>{{ illustration.description}}</div>
-    <div><strong>Media: </strong>{{ illustration.media }}</div>
-    <div><strong>Price: </strong>{{ illustration.price }}</div>
+  <div>  
+    <h3 class="small-title">Illustrations you can buy:</h3>
   </div>
+  <illustration-item
+    v-for="illustration in illustrations"
+    :illustration="illustration"
+  />
 </template>
 <script>
+import IllustrationItem from './IllustrationItem.vue';
   export default {
     props: {
-      illustrations: {
-        type: Array,
-        required: true,
-      }
-    }
-  }
+        illustrations: {
+            type: Array,
+            required: true,
+        }
+    },
+    components: { IllustrationItem }
+}
 </script>
 <style>
-  .category {
+  .illustration {
     max-width: 600px;
     height: 100%;
     margin: 1rem;
