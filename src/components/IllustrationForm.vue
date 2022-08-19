@@ -63,16 +63,17 @@ import MyInput from './UI/MyInput.vue';
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
   .small-title {
-    padding-left: 1rem;
     padding-top: 2rem;
+    align-self: flex-start;
   }
 
   .create-btn {
     width: 200px;
     height: 40px;
-    align-self: flex-start;
+    align-self: flex-end;
   }
 </style>

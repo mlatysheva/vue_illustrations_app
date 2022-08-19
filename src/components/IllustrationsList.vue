@@ -1,6 +1,11 @@
 <template>
   <div v-if="illustrations.length > 0">  
-    <h3 class="small-title">Illustrations you can buy:</h3> 
+    <h3
+      class="small-title"
+      style="margin-left: 1rem;"
+    >
+      Illustrations you can buy:
+    </h3> 
     <illustration-item
       v-for="illustration in illustrations"
       :illustration="illustration"
