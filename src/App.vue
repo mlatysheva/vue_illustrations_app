@@ -5,6 +5,7 @@
     />
     <illustrations-list
       :illustrations="illustrations"
+      @remove="removeIllustration"
     /> 
   </div>
 </template>
@@ -27,6 +28,9 @@
     methods: {
       addIllustration(illustration) {
         this.illustrations.push(illustration);
+      },
+      removeIllustration(illustration) {
+        this.illustrations = this.illustrations.filter( item => item.id !== illustration.id);
       }
     },
   }

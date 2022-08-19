@@ -1,11 +1,16 @@
 <template>
-  <div>  
-    <h3 class="small-title">Illustrations you can buy:</h3>
+  <div v-if="illustrations.length > 0">  
+    <h3 class="small-title">Illustrations you can buy:</h3> 
+    <illustration-item
+      v-for="illustration in illustrations"
+      :illustration="illustration"
+      :key="illustration.id"
+      @remove="$emit('remove', illustration)"
+    />
   </div>
-  <illustration-item
-    v-for="illustration in illustrations"
-    :illustration="illustration"
-  />
+  <h3 v-else class="small-title" style="color: teal">
+    No illustrations are currently available
+  </h3>
 </template>
 <script>
 import IllustrationItem from './IllustrationItem.vue';
