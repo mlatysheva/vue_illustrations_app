@@ -1,12 +1,14 @@
 <template>
   <div class="app">
     <h1 style="text-align: flex-start; margin-left: 1rem;">Picture book illustrations</h1>
-    <my-button
-      style="align-self: flex-start; margin-left: 1rem;"
-      @click="showDialog"
-    >
-      Add illustration
-    </my-button>
+    <div class="get-illustrations-btns">
+      <my-button
+        class="get-illustrations-btn"
+        @click="showDialog"
+      >
+        Add illustration
+      </my-button>
+    </div>    
     <my-dialog v-model:show="dialogVisible">
       <illustration-form
         @add="addIllustration"
@@ -15,13 +17,18 @@
     <illustrations-list
       :illustrations="illustrations"
       @remove="removeIllustration"
-    /> 
+      v-if="!isIllustrationsLoading"
+    />
+    <div class="spinner" v-else>Loading...</div>
   </div>
 </template>
 <script>
-  import IllustrationForm from "@/components/IllustrationForm";
-  import IllustrationsList from "@/components/IllustrationsList";
+
+import IllustrationForm from "@/components/IllustrationForm";
+import IllustrationsList from "@/components/IllustrationsList";
 import MyButton from './components/UI/MyButton.vue';
+import axios from 'axios';
+
   export default {
     components: {
       IllustrationsList, IllustrationForm,
@@ -29,12 +36,9 @@ import MyButton from './components/UI/MyButton.vue';
     },
     data() {
       return {
-        illustrations: [
-          { id: 1, title: "Masha eating the Baby Bear's porridge", description: 'An A3 illustration made for the picture book', media: 'Watercolours', price: '$140'},
-          { id: 2, title: "Easter Bunny answering children's letters", description: 'An A4 illustration to be used in a post card', media: 'Watercolour', price: '$90' },
-          { id: 3, title: "The girl on a ball is helping the little bear to find his dad", description: 'An A3 illustration made for a future picture book', media: 'Acrylics', price: '$140' }
-        ],
+        illustrations: [],
         dialogVisible: false,
+        isIllustrationsLoading: false,
       }
     }, 
     methods: {
@@ -47,8 +51,23 @@ import MyButton from './components/UI/MyButton.vue';
       },
       showDialog() {
         this.dialogVisible = true;
+      },
+      async fetchIllustrations() {
+        try {
+          this.isIllustrationsLoading = true;          
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+          this.illustrations = response.data;
+        } catch(err) {
+          console.error(err);
+        } finally {
+          this.isIllustrationsLoading = false;    
+
+        }
       }
     },
+    mounted() {
+      this.fetchIllustrations();
+    }
   }
 </script>
 <style>
@@ -67,4 +86,22 @@ import MyButton from './components/UI/MyButton.vue';
     display: flex;
     flex-direction: column;
   }
+
+  .get-illustrations-btns {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .get-illustrations-btn {
+    align-self: flex-start; 
+    margin-left: 1rem;
+  }
+
+  .spinner {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    color: teal;
+    font-weight: 500;
+  }
+
 </style>
