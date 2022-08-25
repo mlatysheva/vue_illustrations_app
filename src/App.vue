@@ -1,13 +1,17 @@
 <template>
   <div class="app">
     <h1 style="text-align: flex-start; margin-left: 1rem;">Picture book illustrations</h1>
-    <div class="get-illustrations-btns">
+    <div class="app-btns">
       <my-button
         class="get-illustrations-btn"
         @click="showDialog"
       >
         Add illustration
       </my-button>
+      <my-select
+        v-model="selectedSort"
+        :options="sortOptions"
+      />
     </div>    
     <my-dialog v-model:show="dialogVisible">
       <illustration-form
@@ -27,18 +31,24 @@
 import IllustrationForm from "@/components/IllustrationForm";
 import IllustrationsList from "@/components/IllustrationsList";
 import MyButton from './components/UI/MyButton.vue';
+import MySelect from './components/UI/MySelect.vue';
 import axios from 'axios';
 
   export default {
     components: {
       IllustrationsList, IllustrationForm,
-      MyButton,
+      MyButton, MySelect
     },
     data() {
       return {
         illustrations: [],
         dialogVisible: false,
         isIllustrationsLoading: false,
+        selectedSort: '',
+        sortOptions: [
+          { value: 'title', name: 'By name' },
+          { value: 'body', name: 'By description' },
+        ]
       }
     }, 
     methods: {
@@ -60,8 +70,7 @@ import axios from 'axios';
         } catch(err) {
           console.error(err);
         } finally {
-          this.isIllustrationsLoading = false;    
-
+          this.isIllustrationsLoading = false; 
         }
       }
     },
@@ -87,9 +96,10 @@ import axios from 'axios';
     flex-direction: column;
   }
 
-  .get-illustrations-btns {
+  .app-btns {
+    margin-right: 2rem;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 
   .get-illustrations-btn {
