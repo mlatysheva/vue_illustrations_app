@@ -1,5 +1,6 @@
 <template>
   <div class="illustration">
+    <div>{{ illustration.id }}</div>
     <div><strong>Title: </strong>{{ illustration.title }}</div>
     <div><strong>Description: </strong>{{ illustration.body}}</div>
     <div><strong>Media: </strong>{{ illustration.media }}</div>
@@ -35,7 +36,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-around;
     border: 1px solid teal;
     border-radius: 5px;

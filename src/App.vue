@@ -28,6 +28,19 @@
       v-if="!isIllustrationsLoading"
     />
     <div class="spinner" v-else>Loading...</div>
+    <div class="page-wrapper">
+      <div
+        v-for="pageNumber in totalPages"
+        :key="pageNumber"
+        class="page"
+        :class="{
+          'current-page': page === pageNumber
+        }"
+        @click="changePage(pageNumber)"
+      >
+        {{ pageNumber }}
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -53,7 +66,10 @@ import axios from 'axios';
         sortOptions: [
           { value: 'title', name: 'Name' },
           { value: 'body', name: 'Description' },
-        ]
+        ],
+        page: 1,
+        limit: 10,
+        totalPages: 0,
       }
     }, 
     methods: {
@@ -67,10 +83,20 @@ import axios from 'axios';
       showDialog() {
         this.dialogVisible = true;
       },
+      changePage(pageNumber) {
+        this.page = pageNumber;
+        // this.fetchIllustrations();
+      },
       async fetchIllustrations() {
         try {
           this.isIllustrationsLoading = true;          
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+          const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
+            params: {
+              _page: this.page,
+              _limit: this.limit,
+            }
+          });
+          this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit);
           this.illustrations = response.data;
         } catch(err) {
           console.error(err);
@@ -92,54 +118,60 @@ import axios from 'axios';
       }
     },
     watch: {
-      // selectedSort(newValue) {
-      //   this.illustrations.sort((illustration1, illustration2) => {
-      //     return illustration1[newValue]?.localeCompare(illustration2[newValue])
-      //   })
-      // }
+      page() {
+        this.fetchIllustrations();
+      }
     }
   }
 </script>
 <style>
-  * {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* border: 1px red solid; */
-  }
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* border: 1px red solid; */
+}
+#app {
+  width: 100%;
+  max-width: 1000px;
+}
+.app {
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.search-field {
+  width: 600px !important
+}
+.app-btns {
+  width: 100%;
+  max-width: calc(600px + 2rem);
+  display: flex;
+  justify-content: space-between;
+}
 
-  #app {
-    width: 100%;
-    max-width: 1000px;
-  }
-
-  .app {
-    margin: 1rem;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  .search-field {
-    width: 600px !important
-  }
-  .app-btns {
-    width: 100%;
-    max-width: calc(600px + 2rem);
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .get-illustrations-btn {
-    align-self: flex-start; 
-    margin-left: 1rem;
-  }
-
-  .spinner {
-    margin-top: 1rem;
-    margin-left: 1rem;
-    color: teal;
-    font-weight: 500;
-  }
-
+.get-illustrations-btn {
+  align-self: flex-start; 
+  margin-left: 1rem;
+}
+.spinner {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  color: teal;
+  font-weight: 500;
+}
+.page-wrapper {
+  display: flex;
+  margin: 1rem;
+}
+.page {
+  border: 1px solid grey;
+  padding: 1rem;
+  cursor: pointer;
+}
+.current-page {
+  border: 2px solid teal;
+}
 </style>
