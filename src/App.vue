@@ -1,6 +1,10 @@
 <template>
   <div class="app">
     <h1 style="text-align: flex-start; margin-left: 1rem;">Picture book illustrations</h1>
+    <my-input class="search-field"
+      v-model="searchQuery"
+      placeholder="Search..."
+    />
     <div class="app-btns">
       <my-button
         class="get-illustrations-btn"
@@ -19,7 +23,7 @@
       />
     </my-dialog>    
     <illustrations-list
-      :illustrations="illustrations"
+      :illustrations="sortedAndSearchedIllustrations"
       @remove="removeIllustration"
       v-if="!isIllustrationsLoading"
     />
@@ -44,10 +48,11 @@ import axios from 'axios';
         illustrations: [],
         dialogVisible: false,
         isIllustrationsLoading: false,
+        searchQuery: '',
         selectedSort: '',
         sortOptions: [
-          { value: 'title', name: 'By name' },
-          { value: 'body', name: 'By description' },
+          { value: 'title', name: 'Name' },
+          { value: 'body', name: 'Description' },
         ]
       }
     }, 
@@ -76,6 +81,22 @@ import axios from 'axios';
     },
     mounted() {
       this.fetchIllustrations();
+    },
+    computed: {
+      sortedIllustrations() {
+        return [...this.illustrations].sort((illustration1, illustration2) => 
+           illustration1[this.selectedSort]?.localeCompare(illustration2[this.selectedSort]))
+      },
+      sortedAndSearchedIllustrations() {
+        return this.sortedIllustrations.filter(illustration => illustration.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      }
+    },
+    watch: {
+      // selectedSort(newValue) {
+      //   this.illustrations.sort((illustration1, illustration2) => {
+      //     return illustration1[newValue]?.localeCompare(illustration2[newValue])
+      //   })
+      // }
     }
   }
 </script>
@@ -85,19 +106,26 @@ import axios from 'axios';
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* border: 1px red solid; */
+  }
+
+  #app {
+    width: 100%;
+    max-width: 1000px;
   }
 
   .app {
-    max-width: 1440px;
-    width: 100%;
     margin: 1rem;
     padding: 1rem;
     display: flex;
     flex-direction: column;
   }
-
+  .search-field {
+    width: 600px !important
+  }
   .app-btns {
-    margin-right: 2rem;
+    width: 100%;
+    max-width: calc(600px + 2rem);
     display: flex;
     justify-content: space-between;
   }

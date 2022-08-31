@@ -21,7 +21,6 @@ export default {
 </script>
 <style scoped>
   .input {
-    max-width: 450px;
     width: 100%;
     margin: 1rem;
     background-color: #f5f5f5;
@@ -30,5 +29,4 @@ export default {
     border-radius: 4px;
     box-shadow: 5px 0px 10px 5px lightgray;
   }
-
 </style>

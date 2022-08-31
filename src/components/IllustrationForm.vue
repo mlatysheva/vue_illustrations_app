@@ -56,6 +56,14 @@ import MyInput from './UI/MyInput.vue';
             };
         }
     },
+    // watch: {
+    //   illustration: {
+    //     handler(newValue) {
+    //       console.log(newValue)
+    //     },
+    //     deep: true
+    //   }
+    // }
   }
 </script>
 <style>
