@@ -24,7 +24,7 @@ export default {
     width: 100%;
     margin: 1rem;
     background-color: #f5f5f5;
-    padding: 20px;
+    padding: 1rem;
     border: 1px solid teal;
     border-radius: 4px;
     box-shadow: 5px 0px 10px 5px lightgray;

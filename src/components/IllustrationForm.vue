@@ -31,9 +31,7 @@
   </form>   
 </template>
 <script>
-import MyInput from './UI/MyInput.vue';
   export default {
-  components: { MyInput },
     data() {
         return {
             illustration: {

@@ -20,7 +20,7 @@
   </h3>
 </template>
 <script>
-import IllustrationItem from './IllustrationItem.vue';
+import IllustrationItem from "@/components/IllustrationItem.vue";
   export default {
     props: {
         illustrations: {
