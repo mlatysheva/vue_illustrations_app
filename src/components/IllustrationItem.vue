@@ -6,7 +6,12 @@
     <div><strong>Media: </strong>{{ illustration.media }}</div>
     <div><strong>Price: </strong>{{ illustration.price }}</div>
     <div class="illustration-btns">
-      <my-button class="btn-edit">Edit</my-button>
+      <my-button
+        class="btn-open"
+        @click="$router.push('/illustrations/' + illustration.id)"
+      >
+        Open
+      </my-button>
       <my-button
         class="btn-delete"
         @click="$emit('remove', illustration)"
