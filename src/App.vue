@@ -1,6 +1,6 @@
 <template>
   <nav-bar></nav-bar>
-  <div class="app">
+  <div class="main">
     <router-view></router-view>
   </div>
   
@@ -24,10 +24,11 @@ export default {
 }
 #app {
   width: 100%;
-  max-width: 1000px;
 }
-.app {
-  margin: 1rem;
+.main {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   padding: 1rem;
   display: flex;
   flex-direction: column;

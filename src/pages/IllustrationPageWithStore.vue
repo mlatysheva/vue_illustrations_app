@@ -59,7 +59,6 @@ import IllustrationsList from "@/components/IllustrationsList";
 import MyButton from "@/components/UI/MyButton";
 import MySelect from "@/components/UI/MySelect";
 import MyInput from "@/components/UI/MyInput";
-import axios from 'axios';
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
   export default {
@@ -161,7 +160,6 @@ import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 }
 .observer {
   height: 3rem;
-  background: teal;
 }
 .page-wrapper {
   display: flex;

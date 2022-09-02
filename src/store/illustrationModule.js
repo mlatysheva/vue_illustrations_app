@@ -58,7 +58,7 @@ export const illustrationModule = {
       } catch(err) {
         console.error(err);
       } finally {
-        commit('setLoading', false); ; 
+        commit('setLoading', false);
       }
     },
     async loadMoreIllustrations({ state, commit }) {
@@ -70,13 +70,13 @@ export const illustrationModule = {
             _limit: state.limit,
           }
         });
+        console.log(`in loadMoreIllustrations response is:`);
+        console.dir(response.data);
         commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / this.limit));
         commit('setIllustrations', [...state.illustrations, ...response.data]);
       } catch(err) {
         console.error(err);
-      } finally {
-        this.isIllustrationsLoading = false; 
-      }
+      } 
     }
   },
   namespaced: true,

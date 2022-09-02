@@ -44,6 +44,7 @@
       v-if="!isIllustrationsLoading"
     />
     <div class="spinner" v-else>Loading...</div>
+    <div v-intersection="loadMoreIllustrations" class="observer"></div>
   </div>
 </template>
 <script>
@@ -57,6 +58,7 @@ import { ref } from "vue";
 import useIllustrations from "@/hooks/useIllustrations";
 import useSortedIllustrations from "@/hooks/useSortedIllustrations";
 import useSortedAndSearchedIllustrations from "@/hooks/useSortedAndSearchedIllustrations";
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -76,6 +78,9 @@ export default {
     showDialog() {
       this.dialogVisible = true;
     },
+    ...mapActions({
+      loadMoreIllustrations: 'illustration/loadMoreIllustrations',
+    }),
   },
   setup(props) {
     const { illustrations, totalPages, isIllustrationsLoading } = useIllustrations(10);
@@ -144,7 +149,6 @@ export default {
 }
 .observer {
   height: 3rem;
-  background: teal;
 }
 .page-wrapper {
   display: flex;

@@ -128,15 +128,6 @@ import axios from 'axios';
     },
     mounted() {
       this.fetchIllustrations();
-      // const options = {
-      //   rootMargin: '0px',
-      //   threshold: 1.0
-      // };
-      // const callback = function(entries, observer) {
-
-      // };
-      // const observer = new IntersectionObserver(callback, options);
-      // observer.observe(this.$refs.observer);
     },
     computed: {
       sortedIllustrations() {
@@ -179,7 +170,6 @@ import axios from 'axios';
 }
 .observer {
   height: 3rem;
-  background: teal;
 }
 .page-wrapper {
   display: flex;
