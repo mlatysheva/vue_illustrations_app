@@ -1,6 +1,22 @@
 <template>
   <div class="user-page">
     <h1 style="text-align: flex-start; margin-left: 1rem;">Picture book illustrations</h1>
+    <h2 style="text-align: flex-start; margin-left: 1rem; margin-top: 1rem">Likes: {{ $store.state.likes }}</h2>
+    <h3 style="text-align: flex-start; margin-left: 1rem; margin-top: 1rem">{{ $store.state.isAuth ? "User is authorised" : "Login to use the service" }}</h3>
+    <div class="like-btns">
+      <my-button
+        @click="$store.commit('incrementLikes')"
+        class="like-btn"
+      >
+        Like
+      </my-button>
+      <my-button
+        @click="$store.commit('decrementLikes')"
+        class="dislike-btn"
+      >
+        Dislike
+      </my-button>
+    </div>
     <my-input
       v-focus
       class="search-field"
@@ -156,6 +172,22 @@ import axios from 'axios';
   }
 </script>
 <style>
+.like-btns {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem;
+}
+.like-btn, .dislike-btn {
+  width: 70px;
+}
+.like-btn:hover {
+  background-color: green;
+}
+.dislike-btn:hover {
+  background-color: red;
+}
 .search-field {
   width: 90% !important;
   max-width: 600px !important;

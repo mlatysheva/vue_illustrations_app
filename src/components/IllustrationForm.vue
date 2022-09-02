@@ -2,6 +2,7 @@
   <form @submit.prevent>
     <h4 class="small-title">Add an illustration</h4>
     <my-input
+      v-focus
       v-model="illustration.title"
       type="text"
       placeholder="Title"

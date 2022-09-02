@@ -1,6 +1,6 @@
 <template>
   <div class="illustration">
-    <div>{{ illustration.id }}</div>
+    <div>id: {{ illustration.id }} </div> 
     <div><strong>Title: </strong>{{ illustration.title }}</div>
     <div><strong>Description: </strong>{{ illustration.body}}</div>
     <div><strong>Media: </strong>{{ illustration.media }}</div>
