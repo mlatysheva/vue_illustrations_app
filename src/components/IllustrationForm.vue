@@ -55,14 +55,6 @@
             };
         }
     },
-    // watch: {
-    //   illustration: {
-    //     handler(newValue) {
-    //       console.log(newValue)
-    //     },
-    //     deep: true
-    //   }
-    // }
   }
 </script>
 <style>

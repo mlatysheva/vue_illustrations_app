@@ -30,9 +30,9 @@
       v-if="!isIllustrationsLoading"
     />
     <div class="spinner" v-else>Loading...</div>
-    <div v-intersection="loadMoreIllustrations" class="observer">
-    </div>
-    <!-- <div class="page-wrapper">
+    <!-- <div v-intersection="loadMoreIllustrations" class="observer">
+    </div> -->
+    <div class="page-wrapper">
       <div
         v-for="pageNumber in totalPages"
         :key="pageNumber"
@@ -44,7 +44,7 @@
       >
         {{ pageNumber }}
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
@@ -88,9 +88,9 @@ import axios from 'axios';
       showDialog() {
         this.dialogVisible = true;
       },
-      // changePage(pageNumber) {
-      //   this.page = pageNumber;
-      // },
+      changePage(pageNumber) {
+        this.page = pageNumber;
+      },
       async fetchIllustrations() {
         try {
           this.isIllustrationsLoading = true;          
@@ -148,9 +148,9 @@ import axios from 'axios';
       }
     },
     watch: {
-      // page() {
-      //   this.fetchIllustrations();
-      // }
+      page() {
+        this.fetchIllustrations();
+      }
     }
   }
 </script>

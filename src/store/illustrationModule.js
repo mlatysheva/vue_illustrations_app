@@ -53,12 +53,10 @@ export const illustrationModule = {
             _limit: state.limit,
           }
         });
-        console.log('response is:');
-        console.dir(response);
         commit('setTotalPages', Math.ceil(response.headers['x-total-count'] / state.limit));
         commit('setIllustrations', response.data);
       } catch(err) {
-        console.log(err);
+        console.error(err);
       } finally {
         commit('setLoading', false); ; 
       }

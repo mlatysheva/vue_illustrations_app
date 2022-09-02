@@ -26,10 +26,10 @@
 import IllustrationItem from "@/components/IllustrationItem";
   export default {
     props: {
-        illustrations: {
-            type: Array,
-            required: true,
-        }
+      illustrations: {
+        type: Array,
+        required: true,
+      }
     },
     components: { IllustrationItem }
 }
