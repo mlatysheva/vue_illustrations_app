@@ -1,4 +1,6 @@
 # vue_gallery
+I developed this app to learn vue.
+Click here to check the deployed app: https://mlatysheva.github.io/vue_illustrations_app/
 
 ## Project setup
 ```
