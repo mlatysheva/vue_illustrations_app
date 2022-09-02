@@ -1,10 +1,11 @@
 {
-  "name": "vue_ulbi",
+  "name": "vue_gallery",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "deploy": "gh-pages -d dist --message 'deploy to github pages'"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -18,7 +19,8 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "@vue/compiler-sfc": "^3.2.37"
+    "@vue/compiler-sfc": "^3.2.37",
+    "gh-pages": "^4.0.0"
   },
   "browserslist": [
     "> 1%",
