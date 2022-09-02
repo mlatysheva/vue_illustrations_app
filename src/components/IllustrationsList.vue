@@ -1,5 +1,8 @@
 <template>
-  <div class="illustrations-section" v-if="illustrations.length > 0">  
+  <div
+    class="illustrations-section"
+    v-if="illustrations.length > 0"
+  >  
     <h3
       class="small-title"
       style="margin-left: 1rem;"
@@ -20,7 +23,7 @@
   </h3>
 </template>
 <script>
-import IllustrationItem from "@/components/IllustrationItem.vue";
+import IllustrationItem from "@/components/IllustrationItem";
   export default {
     props: {
         illustrations: {

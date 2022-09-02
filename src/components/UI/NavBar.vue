@@ -5,6 +5,7 @@
       <my-button class="nav-btn" @click="$router.push('/illustrations')">Illustrations</my-button>
       <my-button class="nav-btn" @click="$router.push('/about')">About</my-button>
       <my-button class="nav-btn" @click="$router.push('/store')">Store</my-button>
+      <my-button class="nav-btn" @click="$router.push('/composition')">Composition</my-button>
     </div>
   </div>
 </template>
@@ -31,7 +32,8 @@ import MyButton from './MyButton.vue'
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 250px;
+  max-width: 500px;
+  margin-left: auto;
 }
 .nav-btn {
   margin-top: 0 !important;

@@ -2,6 +2,7 @@ import Main from "@/pages/Main";
 import IllustrationPage from "@/pages/IllustrationPage";
 import IllustrationIdPage from "@/pages/IllustrationIdPage";
 import IllustrationPageWithStore from "@/pages/IllustrationPageWithStore";
+import IllustrationPageCompositionApi from "@/pages/IllustrationPageCompositionApi";
 import About from "@/pages/About";
 import { createRouter } from "vue-router";
 import { createWebHistory } from "vue-router";
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/store',
     component: IllustrationPageWithStore
+  },
+  {
+    path: '/composition',
+    component: IllustrationPageCompositionApi
   },
 ]
 

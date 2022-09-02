@@ -20,7 +20,8 @@
     <my-input
       v-focus
       class="search-field"
-      v-model="searchQuery"
+      :model-value="searchQuery"
+      @update:model-value="setSearchQuery"
       placeholder="Search..."
     />
     <div class="app-btns">
@@ -31,7 +32,8 @@
         Add illustration
       </my-button>
       <my-select
-        v-model="selectedSort"
+        :model-value="selectedSort"
+        @update:model-value="setSelectedSort"
         :options="sortOptions"
       />
     </div>    
@@ -46,22 +48,8 @@
       v-if="!isIllustrationsLoading"
     />
     <div class="spinner" v-else>Loading...</div>
-    <!-- <div ref="observer" class="observer"> -->
     <div v-intersection="loadMoreIllustrations" class="observer">
     </div>
-    <!-- <div class="page-wrapper">
-      <div
-        v-for="pageNumber in totalPages"
-        :key="pageNumber"
-        class="page"
-        :class="{
-          'current-page': page === pageNumber
-        }"
-        @click="changePage(pageNumber)"
-      >
-        {{ pageNumber }}
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
@@ -72,6 +60,7 @@ import MyButton from "@/components/UI/MyButton";
 import MySelect from "@/components/UI/MySelect";
 import MyInput from "@/components/UI/MyInput";
 import axios from 'axios';
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex';
 
   export default {
     components: {
@@ -80,21 +69,19 @@ import axios from 'axios';
     },
     data() {
       return {
-        illustrations: [],
         dialogVisible: false,
-        isIllustrationsLoading: false,
-        searchQuery: '',
-        selectedSort: '',
-        sortOptions: [
-          { value: 'title', name: 'Name' },
-          { value: 'body', name: 'Description' },
-        ],
-        page: 1,
-        limit: 10,
-        totalPages: 0,
       }
     }, 
     methods: {
+      ...mapMutations({
+        setPage: 'illustration/setPage',
+        setSearchQuery: 'illustration/setSearchQuery',
+        setSelectedSort: 'illustration/setSelectedSort',
+      }),
+      ...mapActions({
+        loadMoreIllustrations: 'illustration/loadMoreIllustrations',
+        fetchIllustrations: 'illustration/fetchIllustrations',
+      }),
       addIllustration(illustration) {
         this.illustrations.push(illustration);
         this.dialogVisible = false;
@@ -108,66 +95,28 @@ import axios from 'axios';
       changePage(pageNumber) {
         this.page = pageNumber;
       },
-      async fetchIllustrations() {
-        try {
-          this.isIllustrationsLoading = true;          
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
-            params: {
-              _page: this.page,
-              _limit: this.limit,
-            }
-          });
-          this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit);
-          this.illustrations = response.data;
-        } catch(err) {
-          console.error(err);
-        } finally {
-          this.isIllustrationsLoading = false; 
-        }
-      },
-      async loadMoreIllustrations() {
-        try {
-          this.isIllustrationsLoading = true;          
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
-            params: {
-              _page: this.page,
-              _limit: this.limit,
-            }
-          });
-          this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit);
-          this.illustrations = [...this.illustrations, ...response.data];
-        } catch(err) {
-          console.error(err);
-        } finally {
-          this.isIllustrationsLoading = false; 
-        }
-      }
     },
     mounted() {
       this.fetchIllustrations();
-      // const options = {
-      //   rootMargin: '0px',
-      //   threshold: 1.0
-      // };
-      // const callback = function(entries, observer) {
-
-      // };
-      // const observer = new IntersectionObserver(callback, options);
-      // observer.observe(this.$refs.observer);
     },
     computed: {
-      sortedIllustrations() {
-        return [...this.illustrations].sort((illustration1, illustration2) => 
-           illustration1[this.selectedSort]?.localeCompare(illustration2[this.selectedSort]))
-      },
-      sortedAndSearchedIllustrations() {
-        return this.sortedIllustrations.filter(illustration => illustration.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
-      }
+      ...mapState({
+        illustrations: state => state.illustration.illustrations,
+        isIllustrationsLoading: state => state.illustration.isIllustrationsLoading,
+        searchQuery: state => state.illustration.searchQuery,
+        selectedSort: state => state.illustration.selectedSort,
+        sortOptions: state => state.illustration.sortOptions,
+        page: state => state.illustration.page,
+        limit: state => state.illustration.limit,
+        totalPages: state => state.illustration.totalPages,
+
+      }),
+      ...mapGetters({
+        sortedIllustrations: 'illustration/sortedIllustrations',
+        sortedAndSearchedIllustrations: 'illustration/sortedAndSearchedIllustrations',
+      }),  
     },
     watch: {
-      // page() {
-      //   this.fetchIllustrations();
-      // }
     }
   }
 </script>

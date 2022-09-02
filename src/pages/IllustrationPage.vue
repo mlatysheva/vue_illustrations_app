@@ -30,7 +30,6 @@
       v-if="!isIllustrationsLoading"
     />
     <div class="spinner" v-else>Loading...</div>
-    <!-- <div ref="observer" class="observer"> -->
     <div v-intersection="loadMoreIllustrations" class="observer">
     </div>
     <!-- <div class="page-wrapper">
@@ -89,9 +88,9 @@ import axios from 'axios';
       showDialog() {
         this.dialogVisible = true;
       },
-      changePage(pageNumber) {
-        this.page = pageNumber;
-      },
+      // changePage(pageNumber) {
+      //   this.page = pageNumber;
+      // },
       async fetchIllustrations() {
         try {
           this.isIllustrationsLoading = true;          
@@ -111,7 +110,7 @@ import axios from 'axios';
       },
       async loadMoreIllustrations() {
         try {
-          this.isIllustrationsLoading = true;          
+          this.page += 1;
           const response = await axios.get('https://jsonplaceholder.typicode.com/posts', {
             params: {
               _page: this.page,
